@@ -1,0 +1,22 @@
+#!/usr/bin/sh
+re='^[0-9]+$'
+
+if [ "x$1" != "x" ]; then
+    if [[ $1 =~ $re ]]; then
+        workspace_number=$1
+    else
+        echo "First argument must be the number of workspaces to save"
+    fi
+fi
+
+
+save_root="$HOME/.config/i3/profiles/$2" 
+mkdir -p $save_root
+
+for i in $(seq 1 $workspace_number); do 
+    mkdir -p "$save_root/$i" 
+    i3-resurrect save -w $i --directory "$save_root/$i" 
+done
+
+
+
