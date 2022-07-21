@@ -1,9 +1,17 @@
 #!/usr/bin/sh
 
 workspace_number=$1
-profile_name=$2
 
-for i in $(seq 1 $workspace_number); do 
+if [ "$2" == "--stdin" ]; then
+    read in 
+    profile_name=$in
+else
+    profile_name=$2
+fi
+
+
+
+for i in $(seq 1 $workspace_number); do
     i3-resurrect restore -w $i -d "$HOME/.config/i3/profiles/$profile_name/$i"
 done
 
